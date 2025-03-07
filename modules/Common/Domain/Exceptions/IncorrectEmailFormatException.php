@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Modules\Common\Domain\Exceptions;
 
-use DomainException;
+use Modules\Common\Application\Exceptions\DomainException;
 
 class IncorrectEmailFormatException extends DomainException
 {

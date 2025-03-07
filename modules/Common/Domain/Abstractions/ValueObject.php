@@ -9,6 +9,6 @@ abstract class ValueObject implements JsonSerializable
 {
     public function equals(self $other): bool
     {
-        return $this->jsonSerialize() === $other->jsonSerialize();
+        return get_class($this) === get_class($other) && $this->jsonSerialize() === $other->jsonSerialize();
     }
 }

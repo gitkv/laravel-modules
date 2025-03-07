@@ -27,7 +27,9 @@ class CommonServiceProvider extends ServiceProvider
     {
         if (config()->has('common.policies')) {
             foreach (config('common.policies', []) as $model => $policy) {
-                Gate::policy($model, $policy);
+                if (class_exists($policy)) {
+                    Gate::policy($model, $policy);
+                }
             }
         }
     }

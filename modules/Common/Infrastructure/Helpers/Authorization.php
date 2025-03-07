@@ -15,7 +15,7 @@ class Authorization
     public static function check(string $ability, array|object $arguments = []): void
     {
         if (Gate::denies($ability, $arguments)) {
-            throw new UnauthorizedException;
+            throw new UnauthorizedException("Cannot perform {$ability}");
         }
     }
 
