@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Example\Application\UseCases;
 
-use Modules\Example\Domain\Models\Example;
+use Modules\Example\Domain\Collections\ExampleCollection;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
 /**
@@ -17,9 +17,9 @@ final readonly class GetAllExamples
     ) {}
 
     /**
-     * @return array<Example>
+     * @return ExampleCollection
      */
-    public function handle(): array
+    public function handle(): ExampleCollection
     {
         return $this->repository->getAll();
     }

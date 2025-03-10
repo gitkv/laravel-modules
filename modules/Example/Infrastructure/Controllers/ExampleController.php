@@ -16,15 +16,14 @@ use Modules\Example\Infrastructure\Requests\CreateExampleRequest;
 class ExampleController extends Controller
 {
     public function __construct(
-        private ExampleService $service,
-        private ExampleRepositoryInterface $repository
+        private ExampleService $service
     ) {}
 
     public function index(GetAllExamples $handler): View
     {
         return view('example::index', [
             'welcomeMessage' => $this->service->getWelcomeMessage(),
-            'examples' => $this->repository->getAll(),
+            'examples' => $handler->handle(),
         ]);
     }
 

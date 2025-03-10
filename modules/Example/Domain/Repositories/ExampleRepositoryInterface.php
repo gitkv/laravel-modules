@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Example\Domain\Repositories;
 
-use Modules\Example\Domain\Models\Example;
+use Modules\Example\Domain\Collections\ExampleCollection;
 
 /**
  * Интерфейс репозитория для работы с Example.
@@ -17,7 +17,7 @@ interface ExampleRepositoryInterface
     public function create(array $data): void;
 
     /**
-     * @return array<Example>
+     * @return ExampleCollection
      */
-    public function getAll(): array;
+    public function getAll(): ExampleCollection;
 }

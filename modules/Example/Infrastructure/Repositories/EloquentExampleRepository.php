@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Example\Infrastructure\Repositories;
 
+use Modules\Example\Domain\Collections\ExampleCollection;
 use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
@@ -21,10 +22,10 @@ class EloquentExampleRepository implements ExampleRepositoryInterface
     }
 
     /**
-     * @return array<Example>
+     * @return ExampleCollection
      */
-    public function getAll(): array
+    public function getAll(): ExampleCollection
     {
-        return Example::all()->toArray();
+        return new ExampleCollection(Example::all()->all());
     }
 }
