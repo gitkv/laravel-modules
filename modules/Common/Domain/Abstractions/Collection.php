@@ -9,6 +9,9 @@ use IteratorAggregate;
 use Traversable;
 
 /**
+ * Абстрактный класс для коллекций.
+ * Предоставляет базовую функциональность для работы с коллекциями объектов.
+ *
  * @template TKey of array-key
  * @template TValue
  *

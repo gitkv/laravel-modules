@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules\Example;
@@ -10,6 +11,9 @@ use Modules\Example\Infrastructure\Commands\ExampleCommand;
 use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
 use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 
+/**
+ * Демонстрационный модуль Example.
+ */
 class ExampleModule extends BaseModule
 {
     public function name(): string
@@ -29,12 +33,12 @@ class ExampleModule extends BaseModule
 
     protected function webRoutesPath(): string
     {
-        return __DIR__ . '/Infrastructure/Routes/web.php';
+        return __DIR__.'/Infrastructure/Routes/web.php';
     }
 
     protected function apiRoutesPath(): string
     {
-        return __DIR__ . '/Infrastructure/Routes/api.php';
+        return __DIR__.'/Infrastructure/Routes/api.php';
     }
 
     public function register(Application $app): void

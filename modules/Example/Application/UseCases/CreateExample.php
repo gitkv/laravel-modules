@@ -6,6 +6,9 @@ namespace Modules\Example\Application\UseCases;
 
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
+/**
+ * UseCase для создания новой записи модели Example.
+ */
 final readonly class CreateExample
 {
     public function __construct(

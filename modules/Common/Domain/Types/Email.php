@@ -7,6 +7,9 @@ namespace Modules\Common\Domain\Types;
 use Modules\Common\Domain\Abstractions\ValueObject;
 use Modules\Common\Domain\Exceptions\IncorrectEmailFormatException;
 
+/**
+ * Value-object для работы с email-адресами.
+ */
 class Email extends ValueObject
 {
     private string $value;

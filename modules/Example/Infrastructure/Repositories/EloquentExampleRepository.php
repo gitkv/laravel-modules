@@ -7,6 +7,9 @@ namespace Modules\Example\Infrastructure\Repositories;
 use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
+/**
+ * Реализация репозитория для работы с Example через Eloquent.
+ */
 class EloquentExampleRepository implements ExampleRepositoryInterface
 {
     /**

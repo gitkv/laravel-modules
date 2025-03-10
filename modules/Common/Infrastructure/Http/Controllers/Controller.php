@@ -9,11 +9,17 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+/**
+ * Базовый контроллер с авторизацией и валидацией.
+ * Наследует стандартные возможности Laravel Controller.
+ */
 abstract class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
     /**
+     * Проверяет разрешение для текущего действия
+     *
      * @param  array<string, mixed>|object  $arguments
      *
      * @throws AuthorizationException

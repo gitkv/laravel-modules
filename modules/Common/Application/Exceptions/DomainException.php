@@ -7,6 +7,10 @@ namespace Modules\Common\Application\Exceptions;
 use Illuminate\Contracts\Support\Responsable;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Абстрактное исключение для доменных ошибок.
+ * Содержит HTTP-статус и формирует структуру ответа.
+ */
 abstract class DomainException extends \DomainException implements Responsable
 {
     public function __construct(
@@ -16,6 +20,9 @@ abstract class DomainException extends \DomainException implements Responsable
         parent::__construct($message);
     }
 
+    /**
+     * Конвертирует исключение в JSON-ответ
+     */
     public function toResponse($request): Response
     {
         return response()->json([

@@ -1,8 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules\Example\Application\DTO;
 
+/**
+ * Базовый класс для DTO (Data Transfer Object).
+ */
 abstract class BaseDTO
 {
     /**

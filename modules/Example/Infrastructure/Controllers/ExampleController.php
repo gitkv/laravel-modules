@@ -1,41 +1,42 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules\Example\Infrastructure\Controllers;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Modules\Common\Infrastructure\Http\Controllers\Controller;
 use Modules\Example\Application\Services\ExampleService;
 use Modules\Example\Application\UseCases\CreateExample;
 use Modules\Example\Application\UseCases\GetAllExamples;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
+use Modules\Example\Infrastructure\Requests\CreateExampleRequest;
 
-class ExampleController
+class ExampleController extends Controller
 {
     public function __construct(
-        private ExampleService             $service,
+        private ExampleService $service,
         private ExampleRepositoryInterface $repository
-    )
-    {
-    }
+    ) {}
 
-    public function index(GetAllExamples $handler): JsonResponse
+    public function index(GetAllExamples $handler): View
     {
-        return response()->json($handler->handle());
-    }
-
-    public function store(CreateExample $handler): JsonResponse
-    {
-        $handler->handle(request()->all());
-        return response()->json(['status' => 'success']);
-    }
-
-    public function view(): View
-    {
-        return view('example::welcome', [
+        return view('example::index', [
             'welcomeMessage' => $this->service->getWelcomeMessage(),
-            'examples' => $this->repository->getAll()
+            'examples' => $this->repository->getAll(),
         ]);
     }
-}
 
+    public function create(): View
+    {
+        return view('example::create');
+    }
+
+    public function store(CreateExampleRequest $request, CreateExample $handler): RedirectResponse
+    {
+        $handler->handle($request->validated());
+
+        return redirect(route('example.index'))->withSuccess('Created example successfully');
+    }
+}

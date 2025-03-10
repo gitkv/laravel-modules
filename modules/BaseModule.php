@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules;
@@ -6,6 +7,11 @@ namespace Modules;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Базовый класс для всех модулей в системе.
+ * Предоставляет общую логику для регистрации провайдеров, маршрутов и команд.
+ * Каждый модуль должен наследовать этот класс.
+ */
 abstract class BaseModule implements ModuleInterface
 {
     protected Application $app;
@@ -46,16 +52,31 @@ abstract class BaseModule implements ModuleInterface
     {
         Route::prefix('api')
             ->middleware('api')
+            ->name('api.')
             ->group($this->apiRoutesPath());
     }
 
-    /** @return class-string[] */
+    /**
+     * Возвращает список сервис-провайдеров модуля.
+     *
+     * @return class-string[]
+     */
     abstract protected function providers(): array;
 
-    /** @return class-string[] */
+    /**
+     * Возвращает список команд модуля.
+     *
+     * @return class-string[]
+     */
     abstract protected function commands(): array;
 
+    /**
+     * Возвращает путь к файлу с веб-маршрутами модуля.
+     */
     abstract protected function webRoutesPath(): string;
 
+    /**
+     * Возвращает путь к файлу с API-маршрутами модуля.
+     */
     abstract protected function apiRoutesPath(): string;
 }

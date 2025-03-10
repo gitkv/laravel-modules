@@ -6,6 +6,9 @@ namespace Modules\Example\Domain\Repositories;
 
 use Modules\Example\Domain\Models\Example;
 
+/**
+ * Интерфейс репозитория для работы с Example.
+ */
 interface ExampleRepositoryInterface
 {
     /**

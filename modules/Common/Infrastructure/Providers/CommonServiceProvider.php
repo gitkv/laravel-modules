@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules\Common\Infrastructure\Providers;
@@ -8,6 +9,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\Application\Exceptions\DomainExceptionHandler;
 
+/**
+ * Базовый провайдер для общих сервисов.
+ * Регистрирует обработчик исключений и политики доступа.
+ */
 class CommonServiceProvider extends ServiceProvider
 {
     public function register(): void

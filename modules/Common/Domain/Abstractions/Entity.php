@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Modules\Common\Domain\Abstractions;
@@ -6,6 +7,8 @@ namespace Modules\Common\Domain\Abstractions;
 use JsonSerializable;
 
 /**
+ * Абстракция для сущностей предметной области.
+ *
  * @template T
  */
 abstract class Entity implements JsonSerializable

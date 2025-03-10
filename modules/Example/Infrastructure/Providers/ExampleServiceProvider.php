@@ -6,6 +6,10 @@ namespace Modules\Example\Infrastructure\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Сервис-провайдер для модуля Example.
+ * Регистрирует миграции и представления.
+ */
 class ExampleServiceProvider extends ServiceProvider
 {
     public function boot(): void

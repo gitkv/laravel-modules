@@ -7,6 +7,10 @@ namespace Modules\Common\Infrastructure\Providers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Регистрирует макросы для стандартизированных ответов API.
+ * Добавляет методы для Response.
+ */
 class ResponseMacroServiceProvider extends ServiceProvider
 {
     public function boot(): void
