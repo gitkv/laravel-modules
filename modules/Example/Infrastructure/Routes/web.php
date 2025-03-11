@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Example\Infrastructure\Controllers\ExampleController;
+use Modules\Example\Infrastructure\Http\Controllers\ExampleController;
 
 /**
  * Веб-маршруты для модуля Example.

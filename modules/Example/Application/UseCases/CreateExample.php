@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Example\Application\UseCases;
 
+use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
 /**
@@ -18,8 +19,8 @@ final readonly class CreateExample
     /**
      * @param  array<string, mixed>  $data
      */
-    public function handle(array $data): void
+    public function handle(array $data): Example
     {
-        $this->repository->create($data);
+        return $this->repository->create($data);
     }
 }

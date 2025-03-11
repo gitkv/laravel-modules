@@ -4,23 +4,20 @@ declare(strict_types=1);
 
 namespace Modules\Example\Application\UseCases;
 
-use Modules\Example\Domain\Collections\ExampleCollection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
 /**
  * UseCase для получения всех записей модели Example.
  */
-final readonly class GetAllExamples
+final readonly class GetAllExamplesWithPaginate
 {
     public function __construct(
         private ExampleRepositoryInterface $repository
     ) {}
 
-    /**
-     * @return ExampleCollection
-     */
-    public function handle(): ExampleCollection
+    public function handle(): LengthAwarePaginator
     {
-        return $this->repository->getAll();
+        return $this->repository->getAllWithPaginate();
     }
 }

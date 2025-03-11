@@ -1,6 +1,6 @@
 @extends('example::layouts.app')
 
-@section('title', 'Create New Example')
+@section('title', 'Create New Item')
 
 @section('content')
     <div class="form-container">

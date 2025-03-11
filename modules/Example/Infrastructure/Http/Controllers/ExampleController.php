@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Modules\Example\Infrastructure\Controllers;
+namespace Modules\Example\Infrastructure\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Modules\Common\Infrastructure\Http\Controllers\Controller;
 use Modules\Example\Application\Services\ExampleService;
 use Modules\Example\Application\UseCases\CreateExample;
-use Modules\Example\Application\UseCases\GetAllExamples;
-use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
-use Modules\Example\Infrastructure\Requests\CreateExampleRequest;
+use Modules\Example\Application\UseCases\GetAllExamplesWithPaginate;
+use Modules\Example\Infrastructure\Http\Requests\CreateExampleRequest;
 
 class ExampleController extends Controller
 {
@@ -19,11 +18,11 @@ class ExampleController extends Controller
         private ExampleService $service
     ) {}
 
-    public function index(GetAllExamples $handler): View
+    public function index(GetAllExamplesWithPaginate $handler): View
     {
         return view('example::index', [
             'welcomeMessage' => $this->service->getWelcomeMessage(),
-            'examples' => $handler->handle(),
+            'items' => $handler->handle(),
         ]);
     }
 
@@ -36,6 +35,6 @@ class ExampleController extends Controller
     {
         $handler->handle($request->validated());
 
-        return redirect(route('example.index'))->withSuccess('Created example successfully');
+        return redirect(route('example.index'))->withSuccess('Created item successfully');
     }
 }

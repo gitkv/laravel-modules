@@ -15,15 +15,21 @@
 
     <a href="{{ route('example.create') }}" class="btn btn-primary">Create new item</a>
 
-    @if(count($examples) > 0)
-        <div class="examples-list">
-            @foreach($examples as $example)
-                <article class="example-card">
-                    <h2 class="example-title">{{ $example['name'] }}</h2>
-                    <p>{{ $example['description'] }}</p>
+    @if(count($items) > 0)
+        <div class="items-list">
+            @foreach($items as $item)
+                <article class="item-card">
+                    <h2 class="item-title">{{ $item->name }}</h2>
+                    <p>{{ $item->description }}</p>
+                    <small><i>{{ $item->created_at->isoFormat('LL') }}</i></small>
                 </article>
             @endforeach
         </div>
+
+        <div class="mt-8">
+            {{ $items->links('example::pagination.default') }}
+        </div>
+
     @else
         <div class="empty-state">
             <p>No items found. Start by creating your first item!</p>

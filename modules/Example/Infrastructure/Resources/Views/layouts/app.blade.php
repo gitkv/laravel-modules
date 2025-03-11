@@ -34,20 +34,20 @@
             padding: 2rem 0;
             border-bottom: 2px solid var(--accent-color);
         }
-        .examples-list {
+        .items-list {
             display: grid;
             gap: 1.5rem;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             margin-top: 2em;
         }
-        .example-card {
+        .item-card {
             background: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
         }
-        .example-title {
+        .item-title {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
@@ -88,7 +88,6 @@
         .form-group {
             margin-bottom: 1.5rem;
         }
-
         .form-control {
             width: 100%;
             padding: 0.75rem;
@@ -96,18 +95,54 @@
             border-radius: 4px;
             transition: border-color 0.2s;
         }
-
         .form-control:focus {
             border-color: var(--accent-color);
             outline: 0;
             box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
         }
-
         .form-control::placeholder {
             color: var(--error-color);
         }
+        .pagination-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            gap: 0.5rem;
+        }
+        .page-item {
+            margin: 0;
+        }
+        .page-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--gray-color);
+        }
+        .page-link:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        .page-item.active .page-link {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        .page-item.disabled .page-link {
+            color: #666;
+            cursor: default;
+            opacity: 0.7;
+            pointer-events: none;
+        }
     </style>
-    @stack('styles')
 </head>
 <body>
 <div class="container">

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Common\Domain\Abstractions;
 
-use Illuminate\Support\Collection as BaseCollection;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
 /**
@@ -12,9 +12,9 @@ use InvalidArgumentException;
  *
  * @template T
  *
- * @extends BaseCollection<int|string, T>
+ * @extends Collection<int|string, T>
  */
-abstract class TypedCollection extends BaseCollection
+abstract class TypedCollection extends Collection
 {
     /**
      * @param  array<int|string, T>  $items
