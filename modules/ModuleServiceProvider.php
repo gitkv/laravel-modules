@@ -7,6 +7,7 @@ namespace Modules;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Modules\Example\ExampleModule;
+use Override;
 
 /**
  * Сервис-провайдер, который регистрирует все модули в приложении.
@@ -28,6 +29,7 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @throws BindingResolutionException
      */
+    #[Override]
     public function register(): void
     {
         $commands = [];

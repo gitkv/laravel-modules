@@ -6,6 +6,7 @@ namespace Modules;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Override;
 
 /**
  * Базовый класс для всех модулей в системе.
@@ -21,6 +22,7 @@ abstract class BaseModule implements ModuleInterface
         $this->app = $app;
     }
 
+    #[Override]
     public function registerProviders(): void
     {
         foreach ($this->providers() as $provider) {
@@ -31,11 +33,13 @@ abstract class BaseModule implements ModuleInterface
     /**
      * @return class-string[]
      */
+    #[Override]
     public function getCommands(): array
     {
         return $this->commands();
     }
 
+    #[Override]
     public function registerRoutes(): void
     {
         $this->registerWebRoutes();
@@ -73,10 +77,10 @@ abstract class BaseModule implements ModuleInterface
     /**
      * Возвращает путь к файлу с веб-маршрутами модуля.
      */
-    abstract protected function webRoutesPath(): string;
+    abstract protected function webRoutesPath(): ?string;
 
     /**
      * Возвращает путь к файлу с API-маршрутами модуля.
      */
-    abstract protected function apiRoutesPath(): string;
+    abstract protected function apiRoutesPath(): ?string;
 }

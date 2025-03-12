@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Example\Application\UseCases;
 
+use Modules\Example\Application\DTO\CreateExampleData;
+use Modules\Example\Application\Services\ExampleService;
 use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
@@ -13,14 +15,14 @@ use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 final readonly class CreateExample
 {
     public function __construct(
-        private ExampleRepositoryInterface $repository
+        private ExampleService $service,
+        private ExampleRepositoryInterface $repository,
     ) {}
 
-    /**
-     * @param  array<string, mixed>  $data
-     */
-    public function handle(array $data): Example
+    public function execute(CreateExampleData $data): Example
     {
+        $slug = $this->service->generateSlug($data->name);
+
         return $this->repository->create($data);
     }
 }

@@ -14,16 +14,16 @@ use Modules\Example\Infrastructure\Http\Resources\ExampleResource;
 
 class ApiExampleController extends Controller
 {
-    public function index(Request $request, GetAllExamplesWithPaginate $handler): ExampleCollectionResource
+    public function index(Request $request, GetAllExamplesWithPaginate $useCase): ExampleCollectionResource
     {
-        $paginator = $handler->handle();
+        $paginator = $useCase->execute();
 
         return new ExampleCollectionResource($paginator);
     }
 
-    public function store(CreateExampleRequest $request, CreateExample $handler): ExampleResource
+    public function store(CreateExampleRequest $request, CreateExample $useCase): ExampleResource
     {
-        $item = $handler->handle($request->validated());
+        $item = $useCase->execute($request->validated());
 
         return new ExampleResource($item);
     }

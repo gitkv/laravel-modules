@@ -16,8 +16,8 @@ final readonly class GetAllExamplesWithPaginate
         private ExampleRepositoryInterface $repository
     ) {}
 
-    public function handle(): LengthAwarePaginator
+    public function execute(): LengthAwarePaginator
     {
-        return $this->repository->getAllWithPaginate();
+        return $this->repository->paginate();
     }
 }

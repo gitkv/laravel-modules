@@ -20,7 +20,7 @@
             @foreach($items as $item)
                 <article class="item-card">
                     <h2 class="item-title">{{ $item->name }}</h2>
-                    <p>{{ $item->description }}</p>
+                    <p>{{ Str::limit($item->description, 100) }}</p>
                     <small><i>{{ $item->created_at->isoFormat('LL') }}</i></small>
                 </article>
             @endforeach

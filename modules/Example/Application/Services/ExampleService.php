@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace Modules\Example\Application\Services;
 
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Str;
+
 /**
  * Сервис для работы с бизнес-логикой модуля Example.
  */
 class ExampleService
 {
-    public function getWelcomeMessage(): string
+    public function generateSlug(string $name): string
     {
-        return 'Welcome to Example Module!';
-    }
+        $datetime = CarbonImmutable::now();
 
-    public function greet(string $name): string
-    {
-        return "Hello, $name! From Example Module Service";
+        return Str::slug(
+            sprintf(
+                '%s-%s',
+                $name,
+                $datetime->timestamp
+            )
+        );
     }
 }

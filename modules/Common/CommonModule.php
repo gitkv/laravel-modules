@@ -2,49 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Modules\Example;
+namespace Modules\Common;
 
 use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
+use Modules\Common\Infrastructure\Providers\CommonServiceProvider;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
-use Modules\Example\Infrastructure\Cli\ExampleCommand;
-use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
 use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 use Override;
 
 /**
- * Демонстрационный модуль Example.
+ * Модуль ядра.
  */
-class ExampleModule extends BaseModule
+class CommonModule extends BaseModule
 {
     #[Override]
     public function name(): string
     {
-        return 'Example';
+        return 'Common';
     }
 
     #[Override]
     protected function providers(): array
     {
-        return [ExampleServiceProvider::class];
+        return [CommonServiceProvider::class];
     }
 
     #[Override]
     protected function commands(): array
     {
-        return [ExampleCommand::class];
+        return [];
     }
 
     #[Override]
     protected function webRoutesPath(): ?string
     {
-        return __DIR__.'/Infrastructure/Http/Routes/web.php';
+        return null;
     }
 
     #[Override]
     protected function apiRoutesPath(): ?string
     {
-        return __DIR__.'/Infrastructure/Http/Routes/api.php';
+        return null;
     }
 
     #[Override]
