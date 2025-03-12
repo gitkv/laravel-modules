@@ -10,8 +10,8 @@ use Modules\Example\Application\DTO\ExampleData;
 use Modules\Example\Application\Services\ExampleService;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
-class CreateExampleItemHandler implements CommandHandlerInterface {
-
+class CreateExampleItemHandler implements CommandHandlerInterface
+{
     public function __construct(
         private ExampleService $service,
         private ExampleRepositoryInterface $repository,

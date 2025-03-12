@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Common\Infrastructure\Providers;
 
-use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\Application\Bus\Command\CommandBusInterface;
 use Modules\Common\Application\Bus\Command\LaravelCommandBus;
-use Modules\Common\Application\Bus\Command\Middleware\CommandTransactionMiddleware;
+use Modules\Common\Application\Bus\Command\Middleware\LoggingMiddleware;
+use Modules\Common\Application\Bus\Command\Middleware\TransactionMiddleware;
 use Modules\Common\Application\Bus\Query\LaravelQueryBus;
+use Modules\Common\Application\Bus\Query\Middleware\CachingMiddleware;
 use Modules\Common\Application\Bus\Query\QueryBusInterface;
 use Override;
 
@@ -23,8 +25,30 @@ class BusServiceProvider extends ServiceProvider
     #[Override]
     public function register(): void
     {
-        $this->app->extend(Dispatcher::class, function (Dispatcher $dispatcher) {
-            $dispatcher->pipeThrough([CommandTransactionMiddleware::class]);
+        $this->registerCommandBus();
+        $this->registerQueryBus();
+    }
+
+    private function registerCommandBus(): void
+    {
+        $this->app->singleton('command.bus.dispatcher', function ($app) {
+            $dispatcher = new Dispatcher($app);
+            $dispatcher->pipeThrough([
+                LoggingMiddleware::class,
+                TransactionMiddleware::class,
+            ]);
+
+            return $dispatcher;
+        });
+    }
+
+    private function registerQueryBus(): void
+    {
+        $this->app->singleton('query.bus.dispatcher', function ($app) {
+            $dispatcher = new Dispatcher($app);
+            $dispatcher->pipeThrough([
+                CachingMiddleware::class,
+            ]);
 
             return $dispatcher;
         });

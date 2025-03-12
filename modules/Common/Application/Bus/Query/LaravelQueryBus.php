@@ -9,9 +9,12 @@ use Override;
 
 class LaravelQueryBus implements QueryBusInterface
 {
-    public function __construct(
-        private readonly Dispatcher $dispatcher
-    ) {}
+    private readonly Dispatcher $dispatcher;
+
+    public function __construct()
+    {
+        $this->dispatcher = app('query.bus.dispatcher');
+    }
 
     #[Override]
     public function ask(Query $query): mixed
