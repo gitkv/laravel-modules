@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Facades\DB;
 use Modules\Common\Application\Bus\Command\Command;
 
-class TransactionMiddleware
+class CommandTransactionMiddleware
 {
     public function handle(Command $command, Closure $next): mixed
     {

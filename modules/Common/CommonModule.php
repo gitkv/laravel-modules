@@ -8,8 +8,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
 use Modules\Common\Infrastructure\Providers\BusServiceProvider;
 use Modules\Common\Infrastructure\Providers\CommonServiceProvider;
-use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
-use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 use Override;
 
 /**
@@ -51,11 +49,5 @@ class CommonModule extends BaseModule
     }
 
     #[Override]
-    public function register(Application $app): void
-    {
-        $app->singleton(
-            ExampleRepositoryInterface::class,
-            EloquentExampleRepository::class
-        );
-    }
+    public function register(Application $app): void {}
 }

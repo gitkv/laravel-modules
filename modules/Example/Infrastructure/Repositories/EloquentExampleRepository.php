@@ -20,10 +20,15 @@ class EloquentExampleRepository implements ExampleRepositoryInterface
     {
         $example = Example::create([
             'name' => $data->name,
-            'description' => $data->description
+            'description' => $data->description,
         ]);
 
-        return (string)$example->id;
+        return (string) $example->id;
+    }
+
+    public function getById(string $id): ?Example
+    {
+        return Example::where('id', $id)->first();
     }
 
     #[Override]

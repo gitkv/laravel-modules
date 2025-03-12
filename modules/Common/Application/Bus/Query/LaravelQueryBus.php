@@ -2,26 +2,25 @@
 
 declare(strict_types=1);
 
-
-namespace Modules\Common\Application\Bus\Command;
+namespace Modules\Common\Application\Bus\Query;
 
 use Illuminate\Bus\Dispatcher;
 use Override;
 
-class LaravelCommandBus implements CommandBusInterface
+class LaravelQueryBus implements QueryBusInterface
 {
     public function __construct(
         private readonly Dispatcher $dispatcher
     ) {}
 
     #[Override]
-    public function dispatch(Command $command): mixed
+    public function ask(Query $query): mixed
     {
-        return $this->dispatcher->dispatch($command);
+        return $this->dispatcher->dispatch($query);
     }
 
     /**
-     * @param array<class-string, class-string> $map
+     * @param  array<class-string, class-string>  $map
      */
     #[Override]
     public function register(array $map): void

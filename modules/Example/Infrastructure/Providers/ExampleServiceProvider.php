@@ -6,8 +6,13 @@ namespace Modules\Example\Infrastructure\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\Application\Bus\Command\CommandBusInterface;
+use Modules\Common\Application\Bus\Query\QueryBusInterface;
 use Modules\Example\Application\Commands\CreateExampleItem;
 use Modules\Example\Application\Commands\Handlers\CreateExampleItemHandler;
+use Modules\Example\Application\Query\GetAllExampleWithPaginate;
+use Modules\Example\Application\Query\GetExampleById;
+use Modules\Example\Application\Query\Handlers\GetAllExampleWithPaginateHandler;
+use Modules\Example\Application\Query\Handlers\GetExampleByIdHandler;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 
@@ -17,7 +22,6 @@ use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
  */
 class ExampleServiceProvider extends ServiceProvider
 {
-
     public $singletons = [
         ExampleRepositoryInterface::class => EloquentExampleRepository::class,
     ];
@@ -28,6 +32,7 @@ class ExampleServiceProvider extends ServiceProvider
         $this->loadViewsFrom(dirname(__DIR__).'/Resources/Views', 'example');
 
         $this->registerCommandHandlers();
+        $this->registerQueryHandlers();
     }
 
     protected function registerCommandHandlers(): void
@@ -38,12 +43,12 @@ class ExampleServiceProvider extends ServiceProvider
         ]);
     }
 
-//    protected function registerQueryHandlers(): void
-//    {
-//        $queryBus = app(QueryBusContract::class);
-//        $queryBus->register([
-//            GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
-//            GetUserByIdQuery::class => GetUserByIdQueryHandler::class,
-//        ]);
-//    }
+    protected function registerQueryHandlers(): void
+    {
+        $queryBus = app(QueryBusInterface::class);
+        $queryBus->register([
+            GetExampleById::class => GetExampleByIdHandler::class,
+            GetAllExampleWithPaginate::class => GetAllExampleWithPaginateHandler::class,
+        ]);
+    }
 }

@@ -8,6 +8,8 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\Application\Exceptions\DomainExceptionHandler;
+use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
+use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 
 /**
  * Базовый провайдер для общих сервисов.
@@ -17,6 +19,7 @@ class CommonServiceProvider extends ServiceProvider
 {
     public $singletons = [
         ExceptionHandler::class => DomainExceptionHandler::class,
+        ExampleRepositoryInterface::class => EloquentExampleRepository::class,
     ];
 
     public function boot(): void

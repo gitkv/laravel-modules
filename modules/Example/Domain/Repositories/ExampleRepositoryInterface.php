@@ -14,6 +14,7 @@ use Modules\Example\Domain\Models\Example;
 interface ExampleRepositoryInterface
 {
     public function create(ExampleData $data): string;
+    public function getById(string $id): ?Example;
 
     public function paginate(int $perPage = 9): LengthAwarePaginator;
 }
