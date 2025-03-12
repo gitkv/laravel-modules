@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Example\Infrastructure\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Modules\Example\Application\DTO\CreateExampleData;
+use Modules\Example\Application\DTO\ExampleData;
 use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 use Override;
@@ -16,12 +16,14 @@ use Override;
 class EloquentExampleRepository implements ExampleRepositoryInterface
 {
     #[Override]
-    public function create(CreateExampleData $data): Example
+    public function create(ExampleData $data): string
     {
-        return Example::create([
+        $example = Example::create([
             'name' => $data->name,
             'description' => $data->description
         ]);
+
+        return (string)$example->id;
     }
 
     #[Override]

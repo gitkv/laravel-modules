@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modules\Example\Infrastructure\Cli;
 
 use Illuminate\Console\Command;
-use Modules\Example\Application\DTO\CreateExampleData;
-use Modules\Example\Application\UseCases\CreateExample;
+use Modules\Common\Application\Bus\Command\CommandBusInterface;
+use Modules\Example\Application\Commands\CreateExampleItem;
 
 /**
  * Консольная команда для создания новой записи модели Example.
@@ -15,10 +15,10 @@ class ExampleCommand extends Command
 {
     protected $signature = 'app:example {name} {description}';
 
-    public function handle(CreateExample $handler): int
+    public function handle(CommandBusInterface $commandBus): int
     {
-        $data = CreateExampleData::from($this->arguments());
-        $handler->execute($data);
+        $command = CreateExampleItem::from($this->arguments());
+        $commandBus->dispatch($command);
 
         return self::SUCCESS;
     }

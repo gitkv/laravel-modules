@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Modules\Example\Infrastructure\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Modules\Common\Application\Bus\Command\CommandBusInterface;
 use Modules\Common\Infrastructure\Http\Controllers\Controller;
-use Modules\Example\Application\UseCases\CreateExample;
+use Modules\Example\Application\Commands\CreateExampleItem;
 use Modules\Example\Application\UseCases\GetAllExamplesWithPaginate;
 use Modules\Example\Infrastructure\Http\Requests\CreateExampleRequest;
 use Modules\Example\Infrastructure\Http\Resources\ExampleCollectionResource;
@@ -21,9 +22,10 @@ class ApiExampleController extends Controller
         return new ExampleCollectionResource($paginator);
     }
 
-    public function store(CreateExampleRequest $request, CreateExample $useCase): ExampleResource
+    public function store(CreateExampleRequest $request, CommandBusInterface $commandBus): ExampleResource
     {
-        $item = $useCase->execute($request->validated());
+        $command = CreateExampleItem::from($request->validated());
+        $id = $commandBus->dispatch($command);
 
         return new ExampleResource($item);
     }

@@ -6,6 +6,7 @@ namespace Modules;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
+use Modules\Common\CommonModule;
 use Modules\Example\ExampleModule;
 use Override;
 
@@ -21,6 +22,7 @@ class ModuleServiceProvider extends ServiceProvider
      * @var array<class-string<ModuleInterface>>
      */
     protected array $modules = [
+        CommonModule::class,
         ExampleModule::class,
     ];
 

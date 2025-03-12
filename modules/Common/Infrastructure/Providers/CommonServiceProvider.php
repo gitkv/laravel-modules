@@ -15,13 +15,9 @@ use Modules\Common\Application\Exceptions\DomainExceptionHandler;
  */
 class CommonServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        $this->app->singleton(
-            ExceptionHandler::class,
-            DomainExceptionHandler::class
-        );
-    }
+    public $singletons = [
+        ExceptionHandler::class => DomainExceptionHandler::class,
+    ];
 
     public function boot(): void
     {

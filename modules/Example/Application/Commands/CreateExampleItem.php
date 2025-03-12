@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
+namespace Modules\Example\Application\Commands;
 
-namespace Modules\Example\Application\DTO;
+use Modules\Common\Application\Bus\Command\Command;
 
-use Modules\Common\Domain\Abstractions\BaseDTO;
-
-class CreateExampleData extends BaseDTO
+class CreateExampleItem extends Command
 {
     public function __construct(
         public readonly string $name,

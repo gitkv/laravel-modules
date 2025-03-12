@@ -6,10 +6,8 @@ namespace Modules\Example;
 
 use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
-use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 use Modules\Example\Infrastructure\Cli\ExampleCommand;
 use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
-use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
 use Override;
 
 /**
@@ -48,11 +46,5 @@ class ExampleModule extends BaseModule
     }
 
     #[Override]
-    public function register(Application $app): void
-    {
-        $app->singleton(
-            ExampleRepositoryInterface::class,
-            EloquentExampleRepository::class
-        );
-    }
+    public function register(Application $app): void {}
 }

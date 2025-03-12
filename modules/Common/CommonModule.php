@@ -6,6 +6,7 @@ namespace Modules\Common;
 
 use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
+use Modules\Common\Infrastructure\Providers\BusServiceProvider;
 use Modules\Common\Infrastructure\Providers\CommonServiceProvider;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
@@ -25,7 +26,10 @@ class CommonModule extends BaseModule
     #[Override]
     protected function providers(): array
     {
-        return [CommonServiceProvider::class];
+        return [
+            BusServiceProvider::class,
+            CommonServiceProvider::class,
+        ];
     }
 
     #[Override]
