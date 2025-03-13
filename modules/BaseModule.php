@@ -48,16 +48,20 @@ abstract class BaseModule implements ModuleInterface
 
     protected function registerWebRoutes(): void
     {
-        Route::middleware('web')
-            ->group($this->webRoutesPath());
+        if ($this->webRoutesPath()) {
+            Route::middleware('web')
+                ->group($this->webRoutesPath());
+        }
     }
 
     protected function registerApiRoutes(): void
     {
-        Route::prefix('api')
-            ->middleware('api')
-            ->name('api.')
-            ->group($this->apiRoutesPath());
+        if ($this->apiRoutesPath()) {
+            Route::prefix('api')
+                ->middleware('api')
+                ->name('api.')
+                ->group($this->apiRoutesPath());
+        }
     }
 
     /**

@@ -6,7 +6,7 @@ namespace Modules\Example;
 
 use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
-use Modules\Example\Infrastructure\Cli\ExampleCommand;
+use Modules\Example\Infrastructure\Cli\ExampleCreateItemCommand;
 use Modules\Example\Infrastructure\Providers\EventServiceProvider;
 use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
 use Override;
@@ -34,7 +34,7 @@ class ExampleModule extends BaseModule
     #[Override]
     protected function commands(): array
     {
-        return [ExampleCommand::class];
+        return [ExampleCreateItemCommand::class];
     }
 
     #[Override]

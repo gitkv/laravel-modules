@@ -11,9 +11,9 @@ use Modules\Example\Application\Commands\CreateExampleItem;
 /**
  * Консольная команда для создания новой записи модели Example.
  */
-class ExampleCommand extends Command
+class ExampleCreateItemCommand extends Command
 {
-    protected $signature = 'app:example {name} {description}';
+    protected $signature = 'app:example-create-item {name} {description}';
 
     public function handle(CommandBusInterface $commandBus): int
     {

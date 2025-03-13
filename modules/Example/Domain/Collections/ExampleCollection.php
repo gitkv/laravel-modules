@@ -17,7 +17,7 @@ class ExampleCollection extends TypedCollection
         return Example::class;
     }
 
-    public function findByName(string $name): self
+    public function findByName(string $name): static
     {
         return $this->filter(fn (Example $e) => $e->name === $name);
     }
