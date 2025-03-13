@@ -7,6 +7,7 @@ namespace Modules\Example;
 use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
 use Modules\Example\Infrastructure\Cli\ExampleCommand;
+use Modules\Example\Infrastructure\Providers\EventServiceProvider;
 use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
 use Override;
 
@@ -24,7 +25,10 @@ class ExampleModule extends BaseModule
     #[Override]
     protected function providers(): array
     {
-        return [ExampleServiceProvider::class];
+        return [
+            ExampleServiceProvider::class,
+            EventServiceProvider::class,
+        ];
     }
 
     #[Override]

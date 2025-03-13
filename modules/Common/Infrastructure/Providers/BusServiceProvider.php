@@ -10,6 +10,8 @@ use Modules\Common\Application\Bus\Command\CommandBusInterface;
 use Modules\Common\Application\Bus\Command\LaravelCommandBus;
 use Modules\Common\Application\Bus\Command\Middleware\CommandLoggingMiddleware;
 use Modules\Common\Application\Bus\Command\Middleware\TransactionMiddleware;
+use Modules\Common\Application\Bus\Event\ExtendedEventDispatcher;
+use Modules\Common\Application\Bus\Event\Middleware\EventLoggingMiddleware;
 use Modules\Common\Application\Bus\Query\LaravelQueryBus;
 use Modules\Common\Application\Bus\Query\Middleware\CachingMiddleware;
 use Modules\Common\Application\Bus\Query\Middleware\QueryLoggingMiddleware;
@@ -26,8 +28,19 @@ class BusServiceProvider extends ServiceProvider
     #[Override]
     public function register(): void
     {
+        $this->registerEventBus();
         $this->registerCommandBus();
         $this->registerQueryBus();
+    }
+
+    private function registerEventBus(): void
+    {
+        $this->app->singleton('events', function ($app) {
+            $dispatcher = new ExtendedEventDispatcher($app);
+            $dispatcher->addMiddleware(EventLoggingMiddleware::class);
+
+            return $dispatcher;
+        });
     }
 
     private function registerCommandBus(): void
