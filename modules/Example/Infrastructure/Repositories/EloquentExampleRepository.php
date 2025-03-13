@@ -16,14 +16,12 @@ use Override;
 class EloquentExampleRepository implements ExampleRepositoryInterface
 {
     #[Override]
-    public function create(ExampleData $data): string
+    public function create(ExampleData $data): Example
     {
-        $example = Example::create([
+        return Example::create([
             'name' => $data->name,
             'description' => $data->description,
         ]);
-
-        return (string) $example->id;
     }
 
     public function getById(string $id): ?Example

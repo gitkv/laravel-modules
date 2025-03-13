@@ -8,10 +8,11 @@ use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\Application\Bus\Command\CommandBusInterface;
 use Modules\Common\Application\Bus\Command\LaravelCommandBus;
-use Modules\Common\Application\Bus\Command\Middleware\LoggingMiddleware;
+use Modules\Common\Application\Bus\Command\Middleware\CommandLoggingMiddleware;
 use Modules\Common\Application\Bus\Command\Middleware\TransactionMiddleware;
 use Modules\Common\Application\Bus\Query\LaravelQueryBus;
 use Modules\Common\Application\Bus\Query\Middleware\CachingMiddleware;
+use Modules\Common\Application\Bus\Query\Middleware\QueryLoggingMiddleware;
 use Modules\Common\Application\Bus\Query\QueryBusInterface;
 use Override;
 
@@ -34,7 +35,7 @@ class BusServiceProvider extends ServiceProvider
         $this->app->singleton('command.bus.dispatcher', function ($app) {
             $dispatcher = new Dispatcher($app);
             $dispatcher->pipeThrough([
-                LoggingMiddleware::class,
+                CommandLoggingMiddleware::class,
                 TransactionMiddleware::class,
             ]);
 
@@ -47,6 +48,7 @@ class BusServiceProvider extends ServiceProvider
         $this->app->singleton('query.bus.dispatcher', function ($app) {
             $dispatcher = new Dispatcher($app);
             $dispatcher->pipeThrough([
+                QueryLoggingMiddleware::class,
                 CachingMiddleware::class,
             ]);
 

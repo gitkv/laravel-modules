@@ -8,7 +8,7 @@ use Closure;
 use Modules\Common\Application\Bus\Command\Command;
 use Psr\Log\LoggerInterface;
 
-class LoggingMiddleware
+class CommandLoggingMiddleware
 {
     public function __construct(
         private readonly LoggerInterface $logger
