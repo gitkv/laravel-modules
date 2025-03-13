@@ -8,5 +8,7 @@ use Modules\Common\Domain\Abstractions\BaseDTO;
 
 /**
  * Абстракция для запросов (CQRS).
+ *
+ * @template TResponse
  */
 abstract class Query extends BaseDTO {}

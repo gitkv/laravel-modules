@@ -11,6 +11,7 @@ use Modules\Example\Application\Events\ExampleCreated;
 use Modules\Example\Application\Services\ExampleService;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
+/** @implements CommandHandlerInterface<CreateExampleItem, string> */
 class CreateExampleItemHandler implements CommandHandlerInterface
 {
     public function __construct(
@@ -30,6 +31,7 @@ class CreateExampleItemHandler implements CommandHandlerInterface
 
         ExampleCreated::dispatch($item->id, $item->name);
 
+        // todo: временное решение пока не реализованы uuid как foreign key
         return (string) $item->id;
     }
 }

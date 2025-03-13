@@ -8,5 +8,7 @@ use Modules\Common\Domain\Abstractions\BaseDTO;
 
 /**
  * Абстракция для команд (CQRS).
+ *
+ * @template TResponse
  */
 abstract class Command extends BaseDTO {}
