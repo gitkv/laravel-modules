@@ -11,56 +11,38 @@ use Override;
 /**
  * Базовый класс для всех модулей в системе.
  * Предоставляет общую логику для регистрации провайдеров, маршрутов и команд.
- * Каждый модуль должен наследовать этот класс.
  */
 abstract class BaseModule implements ModuleInterface
 {
-    protected Application $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
+    protected static string $modulePath;
 
     #[Override]
-    public function registerProviders(): void
+    public function register(Application $app): void
     {
-        foreach ($this->providers() as $provider) {
-            $this->app->register($provider);
+        $this->registerProviders($app);
+        $this->registerRoutes();
+    }
+
+    protected function registerProviders(Application $app): void
+    {
+        foreach ($this->getProviders() as $provider) {
+            $app->register($provider);
         }
     }
 
-    /**
-     * @return class-string[]
-     */
-    #[Override]
-    public function getCommands(): array
+    protected function registerRoutes(): void
     {
-        return $this->commands();
+        $this->loadRoutesForGroup('web', ['middleware' => 'web']);
+        $this->loadRoutesForGroup('api', ['as' => 'api.', 'prefix' => 'api', 'middleware' => 'api']);
     }
 
-    #[Override]
-    public function registerRoutes(): void
+    /** @param array<string, string> $options */
+    protected function loadRoutesForGroup(string $type, array $options): void
     {
-        $this->registerWebRoutes();
-        $this->registerApiRoutes();
-    }
+        $path = static::$modulePath."/Infrastructure/Http/Routes/$type.php";
 
-    protected function registerWebRoutes(): void
-    {
-        if ($this->webRoutesPath()) {
-            Route::middleware('web')
-                ->group($this->webRoutesPath());
-        }
-    }
-
-    protected function registerApiRoutes(): void
-    {
-        if ($this->apiRoutesPath()) {
-            Route::prefix('api')
-                ->middleware('api')
-                ->name('api.')
-                ->group($this->apiRoutesPath());
+        if (file_exists($path)) {
+            Route::group($options, $path);
         }
     }
 
@@ -69,22 +51,5 @@ abstract class BaseModule implements ModuleInterface
      *
      * @return class-string[]
      */
-    abstract protected function providers(): array;
-
-    /**
-     * Возвращает список команд модуля.
-     *
-     * @return class-string[]
-     */
-    abstract protected function commands(): array;
-
-    /**
-     * Возвращает путь к файлу с веб-маршрутами модуля.
-     */
-    abstract protected function webRoutesPath(): ?string;
-
-    /**
-     * Возвращает путь к файлу с API-маршрутами модуля.
-     */
-    abstract protected function apiRoutesPath(): ?string;
+    abstract protected function getProviders(): array;
 }

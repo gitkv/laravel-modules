@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Common;
 
-use Illuminate\Contracts\Foundation\Application;
 use Modules\BaseModule;
 use Modules\Common\Infrastructure\Providers\BusServiceProvider;
 use Modules\Common\Infrastructure\Providers\CommonServiceProvider;
@@ -15,6 +14,8 @@ use Override;
  */
 class CommonModule extends BaseModule
 {
+    protected static string $modulePath = __DIR__;
+
     #[Override]
     public function name(): string
     {
@@ -22,32 +23,17 @@ class CommonModule extends BaseModule
     }
 
     #[Override]
-    protected function providers(): array
+    public function getCommands(): array
+    {
+        return [];
+    }
+
+    #[Override]
+    protected function getProviders(): array
     {
         return [
             BusServiceProvider::class,
             CommonServiceProvider::class,
         ];
     }
-
-    #[Override]
-    protected function commands(): array
-    {
-        return [];
-    }
-
-    #[Override]
-    protected function webRoutesPath(): ?string
-    {
-        return null;
-    }
-
-    #[Override]
-    protected function apiRoutesPath(): ?string
-    {
-        return null;
-    }
-
-    #[Override]
-    public function register(Application $app): void {}
 }
