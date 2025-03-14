@@ -1,66 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Демонстрационный модульный проект Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Этот проект демонстрирует модульную архитектуру в Laravel 12 (PHP 8.4). Вместо стандартной папки `app/` все компоненты организованы в виде независимых модулей, расположенных в директории `modules/`. В качестве примера представлен модуль `Example`, предоставляющий web, API и CLI интерфейсы.
 
-## About Laravel
+## Основные возможности
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Модульность:** Каждый модуль автономен и содержит собственные контроллеры, модели, сервисы и маршруты.
+- **Bus-системы:** Реализованы шины для команд, запросов и событий с поддержкой middleware для логирования, транзакций и кэширования.
+- **Гибкая архитектура:** Применяются паттерны CQRS, DDD и Repository для упрощения масштабирования и тестирования.
+- **Простота расширения:** Добавление нового модуля сводится к созданию новой директории в `modules/` и реализации интерфейса `ModuleInterface`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Сторонние зависимости
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Проект использует следующие сторонние пакеты:
+- **spatie/laravel-data** Применяется для реализации DTO
 
-## Learning Laravel
+Проект устанавливается стандартно используя `sail`:
+```bash
+./vendor/bin/sail up -d
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+./vendor/bin/sail composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Структура проекта
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **modules/** – все модули проекта.
+    - **Common** – ядро системы с общими сервисами, Bus-системами и абстракциями.
+    - **Example** – демонстрационный модуль с web, API и CLI интерфейсами.
 
-## Laravel Sponsors
+Каждый модуль имеет собственную структуру, разделённую на:
+- **Application** – логика команд, запросов, событий и бизнес-сервисов.
+- **Domain** – модели, репозитории и доменные сущности.
+- **Infrastructure** – реализация HTTP-контроллеров, маршрутов, консольных команд и провайдеров.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Bus-системы и Middleware
 
-### Premium Partners
+Проект использует следующие шины:
+- **Command Bus:** Обрабатывает команды. Поддерживает middleware для логирования и транзакций.
+```php
+// Отправка команды
+$commandBus = app(CommandBusInterface::class);
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+$commandBus->dispatch(new CreateExampleItem($name, $desc));
+```
+- **Query Bus:** Обрабатывает запросы с middleware для логирования и кэширования.
+```php
+// Запрос данных
+$queryBus = app(QueryBusInterface::class);
 
-## Contributing
+$items = $queryBus->ask(new GetAllExampleWithPaginate());
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+- **Event Bus:** Публикует события и уведомляет подписчиков, тоже имеет middleware для логирования.
+```php
+// Публикация события
+ExampleCreated::dispatch($item);
+```
 
-## Code of Conduct
+> **Важно:** Внутри модулей реализация может быть произвольной, но взаимодействие между модулями должно осуществляться строго через шины. Это правило продемонстрировано на примере модуля `Example`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Создание нового модуля
 
-## Security Vulnerabilities
+1. **Создание директории:**  
+   Создайте новую папку в `modules/`, например, `YourModule`. И поддиректории: `Application`,`Domain`,`Infrastructure`
+```bash
+mkdir -p modules/YourModule/{Application,Domain,Infrastructure}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Реализация интерфейса:**  
+   Создайте главный класс модуля в корне модуля `YourModule.php`, унаследовавшись от `BaseModule`.
+```php
+// modules/YourModule/YourModule.php
+<?php
 
-## License
+declare(strict_types=1);
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+namespace Modules\YourModule;
+
+use Modules\BaseModule;
+use Override;
+
+class YourModule extends BaseModule
+{
+    protected static string $modulePath = __DIR__;
+
+    #[Override]
+    public function name(): string
+    {
+        return 'YourModule';
+    }
+
+    #[Override]
+    public function getCommands(): array
+    {
+        return [];
+    }
+
+    #[Override]
+    protected function getProviders(): array
+    {
+        return [YourModuleServiceProvider::class];
+    }
+}
+```
+
+4. **Регистрация:**  
+   Добавьте главный класс модуля `YourModule.php` в `ModuleServiceProvider` в свойство `$modules`. Если необходимо отключить модуль, достаточно убрать его запись из этого массива.
+```php
+// modules/ModuleServiceProvider.php
+private array $modules = [
+    CommonModule::class,
+    YourModule::class,
+];
+```
+
+## Рекомендуемая структура:
+```text
+modules/YourModule/
+├── Application/                   # Слой бизнес-логики
+│   ├── Commands/                  # Command (CQRS) – операции, изменяющие состояние
+│   │   └── CreateYourEntity.php
+│   ├── DTO/                       # Data Transfer Objects (DTO) – для передачи данных
+│   │   └── YourEntityData.php
+│   ├── Events/                    # Доменные события
+│   │   └── YourEntityCreated.php
+│   ├── Listeners/                 # Слушатели событий
+│   │   └── LogYourEntityCreated.php
+│   ├── Query/                     # Query (CQRS) – получение данных
+│   │   ├── GetYourEntityById.php
+│   │   └── Handlers/              # Обработчики запросов
+│   │       └── GetYourEntityByIdHandler.php
+│   └── Services/                  # Бизнес-сервисы для реализации логики
+│       └── YourEntityService.php  # Сервис для работы с YourEntity
+│
+├── Domain/                        # Доменный слой
+│   ├── Models/                    # Доменные модели (сущности)
+│   │   └── YourEntity.php         # Модель сущности YourEntity
+│   └── Repositories/              # Интерфейсы репозиториев для работы с данными
+│       └── YourEntityRepositoryInterface.php  # Интерфейс репозитория для YourEntity
+│
+├── Infrastructure/                # Слой инфраструктуры
+│   ├── Cli/                       # Консольные команды для управления модулем
+│   │   └── YourEntityCommand.php  # Пример CLI-команды для YourModule
+│   ├── Http/                      # Web-интерфейс модуля
+│   │   ├── Controllers/           # Контроллеры для обработки HTTP-запросов
+│   │   │   └── YourEntityController.php
+│   │   ├── Requests/              # HTTP-запросы и валидация входных данных
+│   │   │   └── CreateYourEntityRequest.php
+│   │   ├── Routes/
+│   │   │   ├── web.php            # Маршруты для web-интерфейса
+│   │   │   └── api.php            # Маршруты для API-интерфейса
+│   │   └── Resources/             # Ресурсы для форматирования данных (например, API-ресурсы)
+│   │       └── YourEntityResource.php
+│   └── Providers/                 # Сервис-провайдеры для регистрации зависимостей и конфигураций модуля
+│       └── YourModuleServiceProvider.php
+│
+└── YourModule.php                 # Главный класс модуля, реализующий ModuleInterface
+
+```
