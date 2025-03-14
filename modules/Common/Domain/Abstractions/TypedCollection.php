@@ -55,7 +55,7 @@ abstract class TypedCollection extends Collection
     /**
      * @param  T  $item
      */
-    public function add($item): self
+    public function add($item): static
     {
         $expectedType = static::getAllowedType();
 
@@ -69,7 +69,7 @@ abstract class TypedCollection extends Collection
         return parent::add($item);
     }
 
-    public function push(...$values): self
+    public function push(...$values): static
     {
         foreach ($values as $value) {
             $this->add($value);
@@ -82,7 +82,7 @@ abstract class TypedCollection extends Collection
      * @param  int|string  $key
      * @param  T  $value
      */
-    public function put($key, $value): self
+    public function put($key, $value): static
     {
         $expectedType = static::getAllowedType();
 
@@ -96,7 +96,7 @@ abstract class TypedCollection extends Collection
         return parent::put($key, $value);
     }
 
-    public function merge($items): self
+    public function merge($items): static
     {
         $items = $this->getArrayableItems($items);
         $this->validateItems($items);
