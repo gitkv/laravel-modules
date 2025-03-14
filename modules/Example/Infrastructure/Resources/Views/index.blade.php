@@ -18,7 +18,7 @@
     @if(count($items) > 0)
         <div class="items-list">
             @foreach($items as $item)
-                <article class="item-card">
+                <article class="item-card" title="{{ $item->slug }}">
                     <h2 class="item-title">{{ $item->name }}</h2>
                     <p>{{ Str::limit($item->description, 100) }}</p>
                     <small><i>{{ $item->created_at->isoFormat('LL') }}</i></small>

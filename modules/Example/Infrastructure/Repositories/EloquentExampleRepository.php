@@ -18,10 +18,7 @@ class EloquentExampleRepository implements ExampleRepositoryInterface
     #[Override]
     public function create(ExampleData $data): Example
     {
-        return Example::create([
-            'name' => $data->name,
-            'description' => $data->description,
-        ]);
+        return Example::create($data->all());
     }
 
     public function getById(string $id): ?Example
