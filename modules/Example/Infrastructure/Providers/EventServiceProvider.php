@@ -10,7 +10,7 @@ use Modules\Example\Application\Listeners\LogExampleCreated;
 use Override;
 
 /**
- * Сервис-провайдер для модуля Example2.
+ * Сервис-провайдер для модуля Example.
  */
 class EventServiceProvider extends ServiceProvider
 {
