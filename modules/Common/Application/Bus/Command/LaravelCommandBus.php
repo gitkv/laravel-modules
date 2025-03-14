@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Common\Application\Bus\Command;
 
-use Illuminate\Bus\Dispatcher;
 use Override;
 
 class LaravelCommandBus implements CommandBusInterface
 {
-    private readonly Dispatcher $dispatcher;
-
-    public function __construct()
-    {
-        $this->dispatcher = app('command.bus.dispatcher');
-    }
+    public function __construct(
+        private readonly CommandDispatcher $dispatcher,
+    ) {}
 
     #[Override]
     public function dispatch(Command $command): mixed

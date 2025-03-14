@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Common\Application\Bus\Query;
 
-use Illuminate\Bus\Dispatcher;
 use Override;
 
 class LaravelQueryBus implements QueryBusInterface
 {
-    private readonly Dispatcher $dispatcher;
-
-    public function __construct()
-    {
-        $this->dispatcher = app('query.bus.dispatcher');
-    }
+    public function __construct(
+        private readonly QueryDispatcher $dispatcher,
+    ) {}
 
     #[Override]
     public function ask(Query $query): mixed

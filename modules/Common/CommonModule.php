@@ -22,12 +22,14 @@ class CommonModule extends BaseModule
         return 'Common';
     }
 
+    /** @return class-string[] */
     #[Override]
     public function getCommands(): array
     {
         return [];
     }
 
+    /** @return class-string[] */
     #[Override]
     protected function getProviders(): array
     {
