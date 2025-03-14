@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Modules\Example\Application\Query\Handlers;
 
 use Modules\Common\Application\Bus\Query\QueryHandlerInterface;

@@ -14,7 +14,6 @@ use Override;
  */
 class ExampleCollectionResource extends ResourceCollection
 {
-
     public $collects = ExampleResource::class;
 
     /** @return array{data: ExampleResource[]} */

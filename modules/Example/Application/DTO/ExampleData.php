@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Modules\Example\Application\DTO;
 
 use Modules\Common\Domain\Abstractions\BaseDTO;

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Modules\Example\Application\Query\Handlers;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
