@@ -29,7 +29,7 @@ class CreateExampleItemHandler implements CommandHandlerInterface
             'slug' => $slug,
         ]));
 
-        ExampleCreated::dispatch((string) $item->id, $item->name);
+        ExampleCreated::dispatch($item);
 
         // todo: временное решение пока не реализованы uuid как foreign key
         return (string) $item->id;
