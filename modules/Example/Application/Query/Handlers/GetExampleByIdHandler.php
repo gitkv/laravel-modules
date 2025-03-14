@@ -10,6 +10,7 @@ use Modules\Example\Application\Query\GetExampleById;
 use Modules\Example\Domain\Models\Example;
 use Modules\Example\Domain\Repositories\ExampleRepositoryInterface;
 
+/** @implements QueryHandlerInterface<GetExampleById, Example> */
 class GetExampleByIdHandler implements QueryHandlerInterface
 {
     public function __construct(

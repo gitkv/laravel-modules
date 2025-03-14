@@ -8,8 +8,15 @@ use Closure;
 use Illuminate\Support\Facades\DB;
 use Modules\Common\Application\Bus\Command\Command;
 
+/**
+ * @template TResponse
+ */
 class TransactionMiddleware
 {
+    /**
+     * @param  Command<TResponse>  $command
+     * @return TResponse
+     */
     public function handle(Command $command, Closure $next): mixed
     {
         return DB::transaction(fn () => $next($command));

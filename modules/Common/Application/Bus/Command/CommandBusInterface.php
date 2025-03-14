@@ -14,5 +14,8 @@ interface CommandBusInterface
      */
     public function dispatch(Command $command): mixed;
 
+    /**
+     * @param  array<class-string, class-string>  $map
+     */
     public function register(array $map): void;
 }

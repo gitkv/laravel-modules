@@ -34,7 +34,7 @@ abstract class TypedCollection extends Collection
     /**
      * Проверяет тип элементов.
      *
-     * @param  object[]  $items
+     * @param  object[]|class-string[]  $items
      *
      * @throws InvalidArgumentException
      */

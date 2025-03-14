@@ -10,6 +10,7 @@ use Override;
 
 class ExtendedEventDispatcher extends BaseDispatcher
 {
+    /** @var array<class-string> */
     protected array $middleware = [];
 
     public function addMiddleware(string $middlewareClass): void
@@ -17,13 +18,15 @@ class ExtendedEventDispatcher extends BaseDispatcher
         $this->middleware[] = $middlewareClass;
     }
 
+    /** @return array<Closure>|null */
     #[Override]
-    public function dispatch($event, $payload = [], $halt = false)
+    public function dispatch($event, $payload = [], $halt = false): ?array
     {
         $eventObject = is_object($event) ? $event : $payload[0] ?? null;
 
         if ($eventObject instanceof BaseEvent) {
             $middlewareStack = $this->buildMiddlewareStack();
+
             return $middlewareStack($eventObject);
         }
 
@@ -39,6 +42,7 @@ class ExtendedEventDispatcher extends BaseDispatcher
             function ($next, $middlewareClass) {
                 return function ($event) use ($next, $middlewareClass) {
                     $middleware = app($middlewareClass);
+
                     return $middleware->handle($event, $next);
                 };
             },

@@ -8,12 +8,19 @@ use Closure;
 use Modules\Common\Application\Bus\Query\Query;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @template TResponse
+ */
 class QueryLoggingMiddleware
 {
     public function __construct(
         private readonly LoggerInterface $logger
     ) {}
 
+    /**
+     * @param  Query<TResponse>  $query
+     * @return TResponse
+     */
     public function handle(Query $query, Closure $next): mixed
     {
         $this->logger->info('Query dispatched', [

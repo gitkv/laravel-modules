@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Cache;
 use Modules\Common\Application\Bus\Query\Cacheable;
 use Modules\Common\Application\Bus\Query\Query;
 
+/**
+ * @template TResponse
+ */
 class CachingMiddleware
 {
-    public function handle(Query $query, Closure $next)
+    /**
+     * @param  Query<TResponse>  $query
+     * @return TResponse
+     */
+    public function handle(Query $query, Closure $next): mixed
     {
         if ($query instanceof Cacheable) {
             return Cache::remember(

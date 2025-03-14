@@ -17,11 +17,12 @@ class ExampleCollectionResource extends ResourceCollection
 
     public $collects = ExampleResource::class;
 
+    /** @return array{data: ExampleResource[]} */
     #[Override]
     public function toArray(Request $request): array
     {
         return [
-            'data' => $this->collection,
+            'data' => $this->collection->all(),
         ];
     }
 }

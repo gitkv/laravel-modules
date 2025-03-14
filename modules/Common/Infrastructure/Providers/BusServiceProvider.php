@@ -20,6 +20,7 @@ use Override;
 
 class BusServiceProvider extends ServiceProvider
 {
+    /** @var array<class-string, class-string> */
     public $singletons = [
         CommandBusInterface::class => LaravelCommandBus::class,
         QueryBusInterface::class => LaravelQueryBus::class,

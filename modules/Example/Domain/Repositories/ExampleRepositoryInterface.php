@@ -16,5 +16,6 @@ interface ExampleRepositoryInterface
     public function create(ExampleData $data): Example;
     public function getById(string $id): ?Example;
 
+    /** @return LengthAwarePaginator<Example> */
     public function paginate(int $perPage = 9): LengthAwarePaginator;
 }

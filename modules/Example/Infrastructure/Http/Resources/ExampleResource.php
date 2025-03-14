@@ -13,6 +13,7 @@ use Modules\Example\Domain\Models\Example;
  */
 class ExampleResource extends JsonResource
 {
+    /** @return array<string, mixed> */
     public function toArray($request): array
     {
         return [

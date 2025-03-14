@@ -29,6 +29,7 @@ class EloquentExampleRepository implements ExampleRepositoryInterface
         return Example::where('id', $id)->first();
     }
 
+    /** @return LengthAwarePaginator<Example> */
     #[Override]
     public function paginate(int $perPage = 9): LengthAwarePaginator
     {

@@ -22,6 +22,7 @@ use Modules\Example\Infrastructure\Repositories\EloquentExampleRepository;
  */
 class ExampleServiceProvider extends ServiceProvider
 {
+    /** @var array<class-string, class-string> */
     public $singletons = [
         ExampleRepositoryInterface::class => EloquentExampleRepository::class,
     ];
