@@ -1,0 +1,6 @@
+// Add to **ModuleName**\Infrastructure\Providers\EventServiceProvider::$listen
+protected $listen = [
+    **EventClass**::class => [
+        **Namespace**\Application\Listeners\**ListenerClass**::class,
+    ],
+];

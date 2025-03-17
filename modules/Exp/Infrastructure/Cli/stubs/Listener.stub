@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Application\Listeners;
+
+use **EventClass**;
+
+class **ListenerName**
+{
+    public function handle(**EventName** $event): void
+    {
+        // Listener logic
+    }
+}

@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Infrastructure\Http\Controllers;
+
+use Modules\Common\Infrastructure\Http\Controllers\Controller;
+
+class **ControllerName** extends Controller
+{
+    // Controller actions
+}

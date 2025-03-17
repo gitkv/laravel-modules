@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Application\Commands\Handlers;
+
+use Modules\Common\Application\Bus\Command\CommandHandlerInterface;
+use Modules\**ModuleName**\Application\Commands\**CommandName**;
+
+class **CommandName**Handler implements CommandHandlerInterface
+{
+    public function handle(**CommandName** $command): void
+    {
+        // Command logic here
+    }
+}

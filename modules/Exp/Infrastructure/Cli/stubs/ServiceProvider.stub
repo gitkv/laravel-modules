@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Infrastructure\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Modules\Common\Application\Bus\Command\CommandBusInterface;
+use Modules\Common\Application\Bus\Query\QueryBusInterface;
+
+class **ModuleName**ServiceProvider extends ServiceProvider
+{
+    /** @var array<class-string, class-string> */
+    public $singletons = [];
+
+    public function boot(): void {}
+
+    protected function registerCommandHandlers(): void
+    {
+        $commandBus = app(CommandBusInterface::class);
+        // register commands: $commandBus->register([...]);
+    }
+
+    protected function registerQueryHandlers(): void
+    {
+        $queryBus = app(QueryBusInterface::class);
+        // register queries: $queryBus->register([...]);
+    }
+}

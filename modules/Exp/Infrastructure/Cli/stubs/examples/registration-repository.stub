@@ -1,0 +1,6 @@
+// Add to **ModuleName**ServiceProvider::$singletons
+
+public $singletons = [
+    // ...
+    \**Namespace**\Domain\Repositories\**RepositoryInterface**::class => \**Namespace**\Infrastructure\Repositories\**RepositoryImplementation**::class,
+];

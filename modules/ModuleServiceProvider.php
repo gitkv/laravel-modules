@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Modules\Common\CommonModule;
 use Modules\Example\ExampleModule;
+use Modules\Exp\ExpModule;
 use Override;
 
 /**
@@ -23,6 +24,7 @@ class ModuleServiceProvider extends ServiceProvider
      * @var array<class-string<ModuleInterface>>
      */
     private array $modules = [
+        ExpModule::class,
         CommonModule::class,
         ExampleModule::class,
     ];

@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Infrastructure\Repositories;
+
+use Modules\**ModuleName**\Domain\Repositories\**RepositoryName**RepositoryInterface;
+
+class Eloquent**RepositoryName**Repository implements **RepositoryName**RepositoryInterface
+{
+    // Implementation
+}

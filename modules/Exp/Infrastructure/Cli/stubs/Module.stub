@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**;
+
+use Modules\BaseModule;
+use Modules\**ModuleName**\Infrastructure\Providers\**ModuleName**ServiceProvider;
+use Override;
+
+class **ModuleName**Module extends BaseModule
+{
+    protected static string $modulePath = __DIR__;
+
+    #[Override]
+    public function name(): string
+    {
+        return '**ModuleName**';
+    }
+
+    #[Override]
+    public function getCommands(): array
+    {
+        return [];
+    }
+
+    #[Override]
+    protected function getProviders(): array
+    {
+        return [
+            **ModuleName**ServiceProvider::class,
+        ];
+    }
+}

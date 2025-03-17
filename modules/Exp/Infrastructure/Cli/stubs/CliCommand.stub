@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Infrastructure\Cli;
+
+use Illuminate\Console\Command;
+
+class **CliCommandName** extends Command
+{
+    protected $signature = 'app:**module_snake**:your-command-name';
+
+    protected $description = 'Description of your command';
+
+    public function handle(): int
+    {
+        // Your command logic here
+        $this->info('Command executed successfully');
+
+        return self::SUCCESS;
+    }
+}

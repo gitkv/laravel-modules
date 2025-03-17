@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Application\DTO;
+
+use Modules\Common\Domain\Abstractions\BaseDTO;
+
+class **DtoName** extends BaseDTO
+{
+    public function __construct(
+        // Add your properties here
+    ) {}
+}

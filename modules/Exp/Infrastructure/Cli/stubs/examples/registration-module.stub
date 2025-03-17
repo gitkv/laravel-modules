@@ -1,0 +1,5 @@
+// Add to ModuleServiceProvider::$modules
+private array $modules = [
+    // ...
+    **ModuleName**Module::class,
+];

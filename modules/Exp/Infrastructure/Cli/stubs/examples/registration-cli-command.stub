@@ -1,0 +1,8 @@
+// Add to **ModuleName**Module::getCommands()
+public function getCommands(): array
+{
+    return [
+        // ...
+        \**Namespace**\**CliCommand**::class,
+    ];
+}

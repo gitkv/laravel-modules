@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\**ModuleName**\Application\Queries;
+
+use Modules\Common\Application\Bus\Query\Query;
+
+class **QueryName** extends Query
+{
+    public function __construct(
+        // Add query parameters
+    ) {}
+}
