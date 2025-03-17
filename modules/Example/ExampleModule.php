@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Example;
 
 use Modules\BaseModule;
-use Modules\Example\Infrastructure\Cli\ExampleCreateItemCommand;
+use Modules\Example\Infrastructure\Cli\ExampleCreateItemCli;
 use Modules\Example\Infrastructure\Providers\EventServiceProvider;
 use Modules\Example\Infrastructure\Providers\ExampleServiceProvider;
 use Override;
@@ -27,7 +27,7 @@ class ExampleModule extends BaseModule
     public function getCommands(): array
     {
         return [
-            ExampleCreateItemCommand::class,
+            ExampleCreateItemCli::class,
         ];
     }
 
