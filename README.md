@@ -115,6 +115,36 @@ private array $modules = [
 ];
 ```
 
+
+## Доступные Artisan команды
+
+Проект предоставляет специализированные команды для работы с модулями:
+
+### 1. Создание модуля
+```bash
+php artisan make:module {Module} [--force]
+```
+Создает новую структуру модуля с директориями Application, Domain и Infrastructure.  
+Пример: `php artisan make:module Blog`
+
+### 2. Генерация компонентов
+| Команда | Описание | Пример |
+|--------|----------|--------|
+| `make:module:repository` | Создает репозиторий (интерфейс + реализация) | `php artisan make:module:repository Blog Post` |
+| `make:module:cli` | Создает консольную команду | `php artisan make:module:cli Blog PublishPosts` |
+| `make:module:event` | Создает событие | `php artisan make:module:event Blog PostPublished` |
+| `make:module:dto` | Создает DTO | `php artisan make:module:dto Blog PostData` |
+| `make:module:command` | Создает команду CQRS | `php artisan make:module:command Blog CreatePost` |
+| `make:module:query` | Создает запрос CQRS | `php artisan make:module:query Blog GetPosts` |
+| `make:module:listener` | Создает обработчик событий | `php artisan make:module:listener Blog LogPostPublished` |
+| `make:module:route` | Создает файл маршрутов (web/api) | `php artisan make:module:route Blog` |
+| `make:module:service` | Создает сервисный класс | `php artisan make:module:service Blog PostService` |
+| `make:module:controller` | Создает контроллер | `php artisan make:module:controller Blog PostController` |
+
+### 3. Опции
+- `--force` - Перезаписать существующие файлы
+
+
 ## Рекомендуемая структура:
 ```text
 modules/YourModule/
@@ -142,7 +172,7 @@ modules/YourModule/
 │
 ├── Infrastructure/                # Слой инфраструктуры
 │   ├── Cli/                       # Консольные команды для управления модулем
-│   │   └── YourEntityCommand.php  # Пример CLI-команды для YourModule
+│   │   └── YourEntityCli.php      # Пример CLI-команды для YourModule
 │   ├── Http/                      # Web-интерфейс модуля
 │   │   ├── Controllers/           # Контроллеры для обработки HTTP-запросов
 │   │   │   └── YourEntityController.php
