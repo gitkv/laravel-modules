@@ -9,7 +9,7 @@ use Modules\**ModuleName**\Application\Queries\**QueryName**;
 
 class **QueryName**Handler implements QueryHandlerInterface
 {
-    public function ask(**QueryName** $query): mixed
+    public function handle(**QueryName** $query): mixed
     {
         // Query logic here
     }
